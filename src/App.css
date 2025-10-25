@@ -1039,7 +1039,7 @@ main {
   
   /* --- FIX FOR HERO SLIDER --- */
   .hero-section {
-    height: 400px; /* Reduced height for mobile */
+    height: 200px; /* Reduced height for mobile */
   }
   /* --- END FIX --- */
 
@@ -1073,7 +1073,7 @@ main {
 @media (max-width: 480px) {
   /* --- FIX FOR HERO SLIDER --- */
   .hero-section {
-    height: 300px; /* Further reduced height for small phones */
+    height: 200px; /* Further reduced height for small phones */
   }
   /* --- END FIX --- */
 
