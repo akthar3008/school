@@ -20,6 +20,7 @@ import MandatoryDisclosurePage from './pages/MandatoryDisclosurePage.jsx';
 import GalleryPage from './pages/GalleryPage.jsx';
 import CareersPage from './pages/CareersPage.jsx';
 import BlogPage from './pages/BlogPage.jsx';
+import OtherDocumentsPage from './pages/OtherDocumentsPage.jsx';
 
 import './App.css';
 
@@ -57,6 +58,7 @@ function App() {
           {/* --- END NEW GALLERY ROUTE --- */}
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/documents" element={<OtherDocumentsPage />} />
         </Routes>
       </main>
       <Footer />
