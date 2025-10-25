@@ -149,7 +149,7 @@ main {
 .top-bar .moto::after {
   content: 'Affiliated to CBSE, Govt of India. New Delhi (CBSE Affiliation No. 831492) | REGISTRATIONS ARE OPEN FOR ADMISSIONS FOR THE ACADEMIC YEAR 2026-27';
   position: absolute;
-  top: 0;
+  top: 3;
   left: 0;
   width: 300%;
   color: var(--dark-blue);
