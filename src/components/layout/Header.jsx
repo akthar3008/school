@@ -121,6 +121,9 @@ const Header = () => {
                         <li><a href={schoolPoliciesPDF} target="_blank" rel="noopener noreferrer">School Policies</a></li>
                         <li><a href={disasterManagementPDF} target="_blank" rel="noopener noreferrer">Disaster Management</a></li>
                         <li><NavLink to="/blog">Blog</NavLink></li>
+                        {/* --- NEW LINK ADDED --- */}
+                        <li><NavLink to="/documents">Other Documents</NavLink></li>
+                        {/* --- END NEW LINK --- */}
                     </ul>
                 </li>
                 <li><NavLink to="/contact">Contact Us</NavLink></li>
@@ -139,7 +142,7 @@ const Header = () => {
             About Us <FaChevronDown className={`dropdown-icon ${openDropdown === 'about' ? 'open' : ''}`} />
           </button>
           {openDropdown === 'about' && (
-            <div className="mobile-dropdown-menu">
+            <div className="mobile-dropdown-menu open"> {/* --- Class 'open' added for visibility --- */}
               <NavLink to="/about/overview" onClick={closeMenu}>Overview</NavLink>
               <NavLink to="/about/vision-mission" onClick={closeMenu}>Vision and Mission</NavLink>
               <NavLink to="/about/leadership" onClick={closeMenu}>Leadership</NavLink>
@@ -156,7 +159,7 @@ const Header = () => {
             Programme <FaChevronDown className={`dropdown-icon ${openDropdown === 'programme' ? 'open' : ''}`} />
           </button>
           {openDropdown === 'programme' && (
-            <div className="mobile-dropdown-menu">
+            <div className="mobile-dropdown-menu open"> {/* --- Class 'open' added for visibility --- */}
               <NavLink to="/programme/scholastic" onClick={closeMenu}>Scholastic</NavLink>
               <NavLink to="/programme/co-scholastic" onClick={closeMenu}>Co-Scholastic</NavLink>
             </div>
@@ -169,7 +172,7 @@ const Header = () => {
             Admission <FaChevronDown className={`dropdown-icon ${openDropdown === 'admission' ? 'open' : ''}`} />
           </button>
           {openDropdown === 'admission' && (
-            <div className="mobile-dropdown-menu">
+            <div className="mobile-dropdown-menu open"> {/* --- Class 'open' added for visibility --- */}
               <NavLink to="/admission/kg-montessori" onClick={closeMenu}>KG & Montessori</NavLink>
               <NavLink to="/admission/grades" onClick={closeMenu}>Grade I - VIII</NavLink>
             </div>
@@ -185,12 +188,14 @@ const Header = () => {
             Resources <FaChevronDown className={`dropdown-icon ${openDropdown === 'resources' ? 'open' : ''}`} />
           </button>
           {openDropdown === 'resources' && (
-            <div className="mobile-dropdown-menu">
+            <div className="mobile-dropdown-menu open"> {/* --- Class 'open' added for visibility --- */}
               <NavLink to="/careers" onClick={closeMenu}>Careers</NavLink>
-              {/* Use imported PDF variables for mobile links too */}
               <a href={schoolPoliciesPDF} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>School Policies</a>
               <a href={disasterManagementPDF} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>Disaster Management</a>
               <NavLink to="/blog" onClick={closeMenu}>Blog</NavLink>
+              {/* --- NEW LINK ADDED --- */}
+              <NavLink to="/documents" onClick={closeMenu}>Other Documents</NavLink>
+              {/* --- END NEW LINK --- */}
             </div>
           )}
         </div>
