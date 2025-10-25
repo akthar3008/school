@@ -131,7 +131,7 @@ main {
 /* Top Bar */
 .top-bar {
   background-color: var(--primary-yellow);
-  padding: 0px 0;
+  padding: 3px 0;
   color: var(--dark-blue);
   position: relative;
   z-index: 1;
