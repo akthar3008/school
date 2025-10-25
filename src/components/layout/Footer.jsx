@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaPinterestP, FaYoutube } from 'react-icons/fa';
-import logo from '../../assets/images/NPS-Kudlu-logo.jpg'; // Assuming you have a logo to use
+import logo from '../../assets/images/NPS-Kudlu-logo.jpg'; 
+
+// --- IMPORT PDFs ---
+import schoolPoliciesPDF from '../../assets/documents/School_Policy.pdf';
+import disasterManagementPDF from '../../assets/documents/Disaster_Management.pdf';
+// --- END IMPORTS ---
 
 const Footer = () => {
     return (
@@ -25,32 +30,40 @@ const Footer = () => {
                         <div className="footer-column">
                             <h4>Home</h4>
                             <ul>
-                                <li><Link to="/about">About</Link></li>
-                                <li><Link to="/overview">Overview</Link></li>
-                                <li><Link to="/vision-mission">Vision and Mission</Link></li>
-                                <li><Link to="/leadership">Leadership</Link></li>
-                                <li><Link to="/facilities">Facilities</Link></li>
-                                <li><Link to="/school-details">School Details</Link></li>
+                                {/* --- FIXED LINKS --- */}
+                                <li><Link to="/about/overview">About</Link></li>
+                                <li><Link to="/about/overview">Overview</Link></li>
+                                <li><Link to="/about/vision-mission">Vision and Mission</Link></li>
+                                <li><Link to="/about/leadership">Leadership</Link></li>
+                                <li><Link to="/about/facilities">Facilities</Link></li>
+                                <li><Link to="/about/school-details">School Details</Link></li>
+                                {/* --- END FIXED LINKS --- */}
                             </ul>
                         </div>
                         <div className="footer-column">
                             <h4>Programme</h4>
                             <ul>
-                                <li><Link to="/scholastic-programme">Scholastic Programme</Link></li>
-                                <li><Link to="/co-scholastic-programme">Co-Scholastic Programme</Link></li>
+                                {/* --- FIXED LINKS --- */}
+                                <li><Link to="/programme/scholastic">Scholastic Programme</Link></li>
+                                <li><Link to="/programme/co-scholastic">Co-Scholastic Programme</Link></li>
+                                {/* --- END FIXED LINKS --- */}
                             </ul>
                             <h4>Admission</h4>
                             <ul>
-                                <li><Link to="/admission-kg">KG I, KG II & Montessori</Link></li>
-                                <li><Link to="/admission-grades">Grade I - VIII</Link></li>
+                                {/* --- FIXED LINKS --- */}
+                                <li><Link to="/admission/kg-montessori">KG I, KG II & Montessori</Link></li>
+                                <li><Link to="/admission/grades">Grade I - VIII</Link></li>
+                                {/* --- END FIXED LINKS --- */}
                             </ul>
                         </div>
                         <div className="footer-column">
                             <h4>Resources</h4>
                             <ul>
                                 <li><Link to="/careers">Careers</Link></li>
-                                <li><Link to="/school-policies">School Policies</Link></li>
-                                <li><Link to="/disaster-management">Disaster Management</Link></li>
+                                {/* --- FIXED PDF LINKS --- */}
+                                <li><a href={schoolPoliciesPDF} target="_blank" rel="noopener noreferrer">School Policies</a></li>
+                                <li><a href={disasterManagementPDF} target="_blank" rel="noopener noreferrer">Disaster Management</a></li>
+                                {/* --- END FIXED PDF LINKS --- */}
                                 <li><Link to="/blog">Blog</Link></li>
                                 <li><Link to="/documents">Other Documents</Link></li>
                             </ul>
@@ -58,11 +71,15 @@ const Footer = () => {
                          <div className="footer-column">
                             <h4>Gallery</h4>
                             <ul>
-                                <li><Link to="/events">Events</Link></li>
+                                {/* --- FIXED LINK --- */}
+                                <li><Link to="/gallery">Events</Link></li>
+                                {/* --- END FIXED LINK --- */}
                             </ul>
                              <h4>Others</h4>
                             <ul>
-                                <li><Link to="/disclosure">Mandatory Public Disclosure</Link></li>
+                                {/* --- FIXED LINK --- */}
+                                <li><Link to="/mandatory-disclosure">Mandatory Public Disclosure</Link></li>
+                                {/* --- END FIXED LINK --- */}
                                 <li><Link to="/contact">Contact Us</Link></li>
                             </ul>
                         </div>
@@ -91,4 +108,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
