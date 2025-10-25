@@ -10,29 +10,33 @@ import disasterManagementPDF from '../../assets/documents/Disaster_Management.pd
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(null); // Keep track of which mobile dropdown is open
 
+  // Toggles the main mobile menu visibility
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
-    setOpenDropdown(null);
+    setOpenDropdown(null); // Close any open dropdowns when toggling the main menu
   };
 
+  // Closes the main mobile menu and resets dropdowns
   const closeMenu = () => {
     setIsMenuOpen(false);
     setOpenDropdown(null);
   };
 
+  // Toggles a specific mobile dropdown
   const handleMobileDropdownToggle = (dropdownName) => {
+    // If the clicked dropdown is already open, close it. Otherwise, open it.
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
   };
 
   return (
     <>
       <header className="school-header">
-        {/* Top Bar and Middle Bar remain the same */}
+        {/* Top Bar */}
         <div className="top-bar">
             <div className="container">
-                <p className="moto"></p>
+                <p className="moto"></p> {/* Text is handled by CSS animation */}
                 <div className="social-icons">
                     <a href="#!" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>
                     <a href="#!" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
@@ -42,6 +46,7 @@ const Header = () => {
                 </div>
             </div>
         </div>
+        {/* Middle Bar */}
         <div className="middle-bar">
             <div className="container">
                 <Link to="/" className="logo-container">
@@ -70,8 +75,9 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
+                {/* Hamburger Menu Toggle Button */}
                 <button className="mobile-menu-toggle" onClick={handleMenuToggle}>
-                    {isMenuOpen ? <FaTimes /> : <FaBars />}
+                    {isMenuOpen ? <FaTimes /> : <FaBars />} {/* Changes icon based on menu state */}
                 </button>
             </div>
         </div>
@@ -108,31 +114,72 @@ const Header = () => {
                 </li>
                 <li><NavLink to="/mandatory-disclosure">Mandatory Public Disclosure</NavLink></li>
                 <li><NavLink to="/gallery">Gallery</NavLink></li>
-                
-                {/* --- UPDATED RESOURCES DROPDOWN --- */}
                 <li className="dropdown">
                     <NavLink to="/careers">Resources <FaChevronDown className="dropdown-icon" /></NavLink>
                     <ul className="dropdown-menu">
                         <li><NavLink to="/careers">Careers</NavLink></li>
-                        {/* Use <a> tag for PDFs */}
                         <li><a href={schoolPoliciesPDF} target="_blank" rel="noopener noreferrer">School Policies</a></li>
                         <li><a href={disasterManagementPDF} target="_blank" rel="noopener noreferrer">Disaster Management</a></li>
-                        <li><NavLink to="/resources/blog">Blog</NavLink></li>
+                        <li><NavLink to="/blog">Blog</NavLink></li>
                     </ul>
                 </li>
-                {/* --- END UPDATED RESOURCES DROPDOWN --- */}
-
                 <li><NavLink to="/contact">Contact Us</NavLink></li>
             </ul>
           </div>
         </nav>
       </header>
 
-      {/* Mobile Navigation Panel */}
+      {/* --- COMPLETE MOBILE NAVIGATION PANEL --- */}
       <nav className={`mobile-nav ${isMenuOpen ? 'open' : ''}`}>
-        {/* ... other mobile links ... */}
-        
-        {/* --- UPDATED MOBILE RESOURCES DROPDOWN --- */}
+        <NavLink to="/" end onClick={closeMenu}>Home</NavLink>
+
+        {/* Mobile About Us Dropdown */}
+        <div className="mobile-dropdown">
+          <button onClick={() => handleMobileDropdownToggle('about')}>
+            About Us <FaChevronDown className={`dropdown-icon ${openDropdown === 'about' ? 'open' : ''}`} />
+          </button>
+          {openDropdown === 'about' && (
+            <div className="mobile-dropdown-menu">
+              <NavLink to="/about/overview" onClick={closeMenu}>Overview</NavLink>
+              <NavLink to="/about/vision-mission" onClick={closeMenu}>Vision and Mission</NavLink>
+              <NavLink to="/about/leadership" onClick={closeMenu}>Leadership</NavLink>
+              <NavLink to="/about/facilities" onClick={closeMenu}>Facilities</NavLink>
+              <NavLink to="/about/school-day" onClick={closeMenu}>Average School Day</NavLink>
+              <NavLink to="/about/school-details" onClick={closeMenu}>School Details</NavLink>
+            </div>
+          )}
+        </div>
+
+        {/* Mobile Programme Dropdown */}
+        <div className="mobile-dropdown">
+          <button onClick={() => handleMobileDropdownToggle('programme')}>
+            Programme <FaChevronDown className={`dropdown-icon ${openDropdown === 'programme' ? 'open' : ''}`} />
+          </button>
+          {openDropdown === 'programme' && (
+            <div className="mobile-dropdown-menu">
+              <NavLink to="/programme/scholastic" onClick={closeMenu}>Scholastic</NavLink>
+              <NavLink to="/programme/co-scholastic" onClick={closeMenu}>Co-Scholastic</NavLink>
+            </div>
+          )}
+        </div>
+
+        {/* Mobile Admission Dropdown */}
+        <div className="mobile-dropdown">
+          <button onClick={() => handleMobileDropdownToggle('admission')}>
+            Admission <FaChevronDown className={`dropdown-icon ${openDropdown === 'admission' ? 'open' : ''}`} />
+          </button>
+          {openDropdown === 'admission' && (
+            <div className="mobile-dropdown-menu">
+              <NavLink to="/admission/kg-montessori" onClick={closeMenu}>KG & Montessori</NavLink>
+              <NavLink to="/admission/grades" onClick={closeMenu}>Grade I - VIII</NavLink>
+            </div>
+          )}
+        </div>
+
+        <NavLink to="/mandatory-disclosure" onClick={closeMenu}>Mandatory Public Disclosure</NavLink>
+        <NavLink to="/gallery" onClick={closeMenu}>Gallery</NavLink>
+
+        {/* Mobile Resources Dropdown */}
         <div className="mobile-dropdown">
           <button onClick={() => handleMobileDropdownToggle('resources')}>
             Resources <FaChevronDown className={`dropdown-icon ${openDropdown === 'resources' ? 'open' : ''}`} />
@@ -140,17 +187,17 @@ const Header = () => {
           {openDropdown === 'resources' && (
             <div className="mobile-dropdown-menu">
               <NavLink to="/careers" onClick={closeMenu}>Careers</NavLink>
-              {/* Use <a> tag for PDFs in mobile as well */}
-              <a href="/document/School_Policy.pdf" target="_blank" rel="noopener noreferrer">School Policies</a>
-              <a href="/document/Disaster_Management.pdf" target="_blank" rel="noopener noreferrer">Disaster Management</a>
-              <NavLink to="/resources/blog" onClick={closeMenu}>Blog</NavLink>
+              {/* Use imported PDF variables for mobile links too */}
+              <a href={schoolPoliciesPDF} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>School Policies</a>
+              <a href={disasterManagementPDF} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>Disaster Management</a>
+              <NavLink to="/blog" onClick={closeMenu}>Blog</NavLink>
             </div>
           )}
         </div>
-        {/* --- END UPDATED MOBILE RESOURCES DROPDOWN --- */}
-        
+
         <NavLink to="/contact" className="get-in-touch-btn-mobile" onClick={closeMenu}>Contact Us</NavLink>
       </nav>
+      {/* --- END COMPLETE MOBILE NAVIGATION PANEL --- */}
     </>
   );
 };
