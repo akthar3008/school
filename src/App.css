@@ -24,7 +24,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f4f4f4;
-  overflow-x: hidden;
 }
 
 *, *::before, *::after {
@@ -54,8 +53,6 @@ main {
 /* === HEADER STYLES === */
 .school-header {
   box-shadow: 0 4px 12px var(--shadow-color);
-  position: sticky;
-  top: 0;
   z-index: 1000;
   background-color: var(--white);
   animation: slideInFromTop 0.5s ease-out;
@@ -70,58 +67,80 @@ main {
 /* Top Bar */
 .top-bar {
   background-color: var(--primary-yellow);
-  padding: 6px 0;
+  padding: 0px 0;
   color: var(--dark-blue);
   position: relative;
-  z-index: 1;
-  overflow: hidden;
+  z-index: 1; /* Keep overflow hidden for the bleed */
 }
 
+/* MODIFIED: Simplified moto */
 .top-bar .moto {
   flex: 1;
-  overflow: hidden;
-  position: relative;
-  height: 1.2em;
   margin-right: 20px;
-}
-
-.top-bar .moto::after {
-  content: 'Affiliated to CBSE, Govt of India. New Delhi (CBSE Affiliation No. 831492) | REGISTRATIONS ARE OPEN FOR ADMISSIONS FOR THE ACADEMIC YEAR 2026-27';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 300%;
-  color: var(--dark-blue);
   font-weight: bold;
   font-size: 14px;
-  white-space: nowrap;
-  will-change: transform;
-  animation: marquee-rtl 25s linear infinite;
+  color: var(--dark-blue);
+  overflow: hidden; /* Added to contain marquee */
+  position: relative; /* Added for marquee */
+  height: 1.2em; /* Added for marquee */
+}
+
+.top-bar .moto marquee {
+  position: absolute;
+  width: 100%;
 }
 
 .social-icons {
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 3;
-  gap: 18px;
+  display: flex; /* ADDED: For proper alignment */
+  gap: 15px; /* ADDED: For spacing */
+  margin-left: 15px;
+  font-size: 16px;
+  transition: color 0.3s ease;
 }
 
+/* MODIFIED: This is for MOBILE (on yellow bg) */
 .top-bar .social-icons a {
   font-size: 16px;
   transition: color 0.3s ease, transform 0.3s ease;
   color: var(--dark-blue);
 }
 
+/* MODIFIED: This is for MOBILE hover */
 .top-bar .social-icons a:hover {
-  color: var(--white);
+  color: var(--white); /* Or var(--light-blue) */
   transform: scale(1.2) rotate(5deg);
+}
+
+/* ADDED: Angled wrapper for top bar */
+.top-bar-right-angled {
+  background-color: var(--dark-blue);
+  padding: 26px 40px 6px 45px; /* Match top-bar padding and add extra for angle */
+  margin: -6px -91px -6px 0; /* Bleed out to the edge */
+  clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+  display: flex; /* ADDED */
+  align-items: center; /* ADDED */
+}
+
+/* ADDED: Styles for icons INSIDE the angled box (desktop) */
+.top-bar-right-angled .social-icons {
+  margin-left: 0; /* Reset margin */
+}
+.top-bar-right-angled .social-icons a {
+  color: var(--white); /* Icons are white on blue bg */
+}
+.top-bar-right-angled .social-icons a:hover {
+  color: var(--primary-yellow); /* Hover to yellow */
+  transform: scale(1.2);
+}
+.marquee {
+    display: inline-block;
+    width: -webkit-fill-available;
 }
 
 /* Middle Bar */
 .middle-bar {
   background-color: var(--white);
-  padding:2px 0;
+  padding: 8px 0; /* MODIFIED: Increased padding */
 }
 
 .middle-bar .logo-container {
@@ -129,12 +148,19 @@ main {
 }
 
 .middle-bar .logo {
-  height: 60px;
+  height: 55px; /* MODIFIED: Increased logo size */
   transition: transform 0.3s ease;
 }
 
 .middle-bar .logo:hover {
   transform: scale(1.05);
+}
+
+/* --- ADDED: Wrapper for right-side content --- */
+.middle-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Space between contact, buttons, and toggle */
 }
 
 .middle-bar .contact-details {
@@ -175,10 +201,53 @@ main {
   color: var(--dark-blue);
 }
 
+/* --- ADDED: Floating Action Buttons --- */
+.floating-action-buttons {
+  display: flex;
+  gap: 15px; /* Space between the two buttons */
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--light-blue);
+  color: var(--white);
+  font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  transform: scale(1.1) translateY(-2px);
+  background-color: var(--dark-blue);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the second button differently (Parent Login) */
+.action-btn:last-child {
+  background-color: var(--primary-yellow);
+  color: var(--dark-blue);
+}
+.action-btn:last-child:hover {
+  background-color: var(--dark-blue);
+  color: var(--primary-yellow);
+}
+/* --- End Added Styles --- */
+
 /* Main Navigation */
 .main-nav {
-  background-color: var(--dark-blue);
-  position: relative;
+  background-color: var(--primary-yellow); 
+  position: sticky; /* MODIFIED: Makes this bar stick */
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  top: -100px;
+  transition: top 0.3s ease-in-out;
 }
 
 .main-nav .container {
@@ -191,18 +260,18 @@ main {
   padding: 0;
   list-style: none;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* MODIFIED: Align links left */
 }
 
 .main-nav ul li a {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 18px 20px;
+  padding: 19px 20px;
   text-decoration: none;
-  color: var(--white);
-  font-weight: bold;
-  font-size: 15px;
+  color: var(--dark-blue); /* MODIFIED: Dark text */
+  font-weight:inherit; /* MODIFIED: Bold text */
+  font-size: 15px; /* MODIFIED: Slightly larger */
   transition: all 0.3s ease;
   position: relative;
 }
@@ -214,7 +283,7 @@ main {
   left: 50%;
   width: 0;
   height: 3px;
-  background-color: var(--primary-yellow);
+  background-color: var(--dark-blue); /* MODIFIED: Dark underline */
   transition: width 0.3s ease, left 0.3s ease;
 }
 
@@ -224,10 +293,22 @@ main {
   left: 0;
 }
 
-.main-nav ul li a:hover,
+/* MODIFIED: Combined hover/active state */
+.main-nav ul li a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--dark-blue);
+}
 .main-nav ul li a.active {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--primary-yellow);
+  background-color: transparent; /* Active link has no bg */
+  color: #551a8b; /* MODIFIED: Purple color for active link */
+}
+.main-nav.nav-sticky {
+  /* This slides the nav bar down into view */
+  top: 0;
+}
+.main-nav.nav-hidden {
+  /* This slides the nav bar up out of view */
+  top: -100px; /* Make sure this matches the 'top' value above */
 }
 
 /* === DROPDOWN STYLES (DESKTOP) === */
@@ -249,7 +330,7 @@ main {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: var(--dark-blue);
+  background-color: var(--white); /* MODIFIED: White background */
   list-style: none;
   padding: 10px 0;
   margin: 0;
@@ -276,7 +357,7 @@ main {
 }
 
 .dropdown-menu li a {
-  color: var(--dark-blue);
+  color: var(--dark-blue); /* MODIFIED: Dark text */
   padding: 12px 20px;
   width: 100%;
   font-weight: normal;
@@ -289,6 +370,36 @@ main {
   color: var(--primary-yellow);
   padding-left: 25px;
 }
+
+/* ADDED: Get in Touch Button (Desktop) */
+.main-nav-right-angled {
+  background-color: var(--dark-blue);
+  padding: 0 100px 0 71px; /* Padding for angle */
+  margin: -18px -91px -18px 2px; /* Bleed out to edges. Matches nav padding. */
+  display: flex;
+  align-items: center;
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+  height: 58px; /* Manually set to match nav height (18*2 + 16 + ~7) */
+}
+
+.get-in-touch-btn {
+  background-color: var(--light-blue);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.get-in-touch-btn:hover {
+  background-color: var(--white);
+  color: var(--light-blue);
+  transform: scale(1.05);
+}
+
 
 /* Mobile Menu & Toggle (Default Hidden) */
 .mobile-menu-toggle {
@@ -919,15 +1030,38 @@ main {
 
 /* === RESPONSIVE STYLES === */
 @media (max-width: 1200px) {
-  .middle-bar .contact-details {
+  /* --- UPDATED: Hide contact details AND floating buttons --- */
+  .middle-bar .contact-details,
+  .floating-action-buttons {
     display: none;
   }
 }
 
 @media (max-width: 992px) {
   .main-nav { display: none; } /* Hide desktop nav */
+  
+  /* --- UPDATED: This now only contains the mobile toggle --- */
+  .middle-bar-right {
+    gap: 0; /* No gap needed when only toggle is visible */
+  }
+
   .middle-bar .container { justify-content: space-between; } /* Space out logo and toggle */
   .top-bar .moto { display: none; }
+  
+  /* ADDED: Hide new angled wrappers on mobile */
+  .top-bar-right-angled,
+  .main-nav-right-angled {
+    display: none;
+  }
+
+  /* MODIFIED: This is for MOBILE (on yellow bg) */
+  .top-bar .social-icons a {
+    color: var(--dark-blue);
+  }
+  .top-bar .social-icons a:hover {
+    color: var(--white);
+    transform: scale(1.2) rotate(5deg);
+  }
 
   /* Mobile Toggle Button */
   .mobile-menu-toggle {
@@ -1028,6 +1162,49 @@ main {
   .get-in-touch-btn-mobile { background-color: var(--primary-yellow); color: var(--dark-blue) !important; border-radius: 5px; margin: 30px auto 20px; width: calc(100% - 60px); text-align: center; font-weight: bold; transition: background-color 0.3s ease, transform 0.2s ease; padding: 15px 30px !important; }
   .get-in-touch-btn-mobile:hover { background-color: #e0a810; transform: scale(1.03); padding-left: 30px !important; color: var(--dark-blue) !important; }
 
+  /* --- ADDED: Mobile Action Buttons (Apply/Login) --- */
+  .mobile-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: calc(100% - 60px); /* Match contact button width */
+    margin: 20px auto 0;
+  }
+
+  .mobile-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  /* Style for "Apply Online" */
+  .mobile-action-btn:first-child {
+    background-color: var(--light-blue);
+    color: var(--white);
+  }
+  .mobile-action-btn:first-child:hover {
+    background-color: var(--white);
+    color: var(--light-blue);
+  }
+
+  /* Style for "Parent Login" */
+  .mobile-action-btn:last-child {
+    background-color: var(--primary-yellow);
+    color: var(--dark-blue);
+  }
+  .mobile-action-btn:last-child:hover {
+    background-color: var(--white);
+    color: var(--dark-blue);
+  }
+  /* --- END ADDED STYLES --- */
+
+
   .school-info-section { flex-direction: column; margin-top: 20px; gap: 20px; }
   .chairman-content { flex-direction: column; }
 }
@@ -1039,7 +1216,7 @@ main {
   
   /* --- FIX FOR HERO SLIDER --- */
   .hero-section {
-    height: 200px; /* Reduced height for mobile */
+    height: 300px; /* Reduced height for mobile */
   }
   /* --- END FIX --- */
 
@@ -1073,7 +1250,7 @@ main {
 @media (max-width: 480px) {
   /* --- FIX FOR HERO SLIDER --- */
   .hero-section {
-    height: 200px; /* Further reduced height for small phones */
+    height: 300px; /* Further reduced height for small phones */
   }
   /* --- END FIX --- */
 
@@ -1085,3 +1262,333 @@ main {
   .disclosure-section th, .disclosure-section td { font-size: 0.8rem; }
   .blog-title { font-size: 1.2rem; }
 }
+
+/* ==========================================================================
+  NEW STYLES FOR APPLY ONLINE PAGE & MODAL
+========================================================================== 
+*/
+
+.apply-online-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  min-height: 70vh;
+  text-align: center;
+  /* Faint background from your image */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><g fill="%23e0e0e0" fill-opacity="0.1"><path d="M 10 10 L 90 90 M 90 10 L 10 90" stroke="%23e0e0e0" stroke-width="1"/></g></svg>');
+  background-color: #fdfdfd;
+}
+
+.apply-logo {
+  height: 60px;
+  margin-bottom: 25px;
+}
+
+.apply-greeting {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.apply-text {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  max-width: 600px;
+  line-height: 1.6;
+  margin: 5px 0 20px;
+}
+
+.enquire-now-btn-page {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light-blue);
+  background-color: var(--white);
+  border: 2px solid var(--light-blue);
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.enquire-now-btn-page:hover {
+  background-color: var(--light-blue);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+/* --- Modal Styles --- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideInFromTop 0.4s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--dark-blue);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  color: var(--error-red);
+  transform: rotate(90deg);
+}
+
+.modal-form {
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.modal-form h3 {
+  grid-column: 1 / -1;
+  font-size: 1.2rem;
+  color: var(--dark-blue);
+  margin: 10px 0 -10px;
+  border-bottom: 2px solid var(--primary-yellow);
+  padding-bottom: 5px;
+}
+
+.modal-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.modal-form-group label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--text-light);
+}
+
+.modal-form-group label span {
+  color: var(--error-red);
+}
+
+.modal-form-group input,
+.modal-form-group select,
+.modal-form-group textarea {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: var(--text-dark);
+  border: none;
+  border-bottom: 2px solid #ddd;
+  background-color: transparent;
+  transition: border-color 0.3s ease;
+}
+
+/* Fix for placeholder text in date input */
+.modal-form-group input[type="text"]::placeholder {
+  color: #999;
+}
+
+.modal-form-group input:focus,
+.modal-form-group select:focus,
+.modal-form-group textarea:focus {
+  outline: none;
+  border-color: var(--light-blue);
+}
+
+.modal-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.modal-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.modal-submit-btn {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--light-blue);
+  background-color: var(--white);
+  border: 2px solid var(--light-blue);
+  padding: 10px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-submit-btn:hover {
+  background-color: var(--light-blue);
+  color: var(--white);
+}
+
+/* Modal Responsive */
+@media (max-width: 768px) {
+  .modal-form {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .modal-content {
+    width: 95%;
+  }
+
+  .modal-header {
+    padding: 15px 20px;
+  }
+  .modal-form {
+    padding: 20px;
+  }
+}
+
+/* === PARENT LOGIN PAGE STYLES === */
+.login-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 40px 15px;
+  background-color: #f4f4f4; /* Match body background */
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--white);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in;
+  border-top: 5px solid var(--primary-yellow);
+}
+
+.login-title {
+  text-align: center;
+  color: var(--dark-blue);
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-form-group {
+  position: relative;
+}
+
+.login-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.login-form-group input {
+  width: 100%;
+  padding: 15px 15px 15px 45px; /* Add padding for icon */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text-dark);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form-group input:focus {
+  outline: none;
+  border-color: var(--light-blue);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.login-form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.forgot-password {
+  font-size: 0.9rem;
+  color: var(--light-blue);
+  text-decoration: none;
+  transition: text-decoration 0.3s ease;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.login-submit-btn {
+  padding: 12px 25px;
+  background: linear-gradient(45deg, var(--light-blue), #0056b3);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+.login-submit-btn:hover {
+  background: linear-gradient(45deg, #0056b3, var(--light-blue));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+/* Status message styles (already in App.css, but good to ensure they apply) */
+.login-box .status-message {
+  margin-top: 20px;
+  grid-column: unset; /* Reset grid properties if any */
+}
+
