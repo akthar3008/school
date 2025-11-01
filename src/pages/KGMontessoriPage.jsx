@@ -54,7 +54,7 @@ const KGMontessoriPage = () => {
               Phone: +91 97312 26002<br />
               Email: info@npskudlu.com
             </p>
-            <p>The registration for admission to KG I, KG II, and Montessori 1, is now open for the academic year 2026-2027. <Link to="#!" className="apply-online-link">Apply Online Registration</Link></p>
+            <p>The registration for admission to KG I, KG II, and Montessori 1, is now open for the academic year 2026-2027. <Link to="/apply-online" className="apply-online-link">Apply Online Registration</Link></p>
           </div>
         </div>
       </div>
