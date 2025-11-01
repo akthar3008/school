@@ -93,6 +93,7 @@ const Header = () => {
                 <a href="https://www.linkedin.com/in/national-public-school-kudlu-26539625a/?original_referer=https%3A%2F%2Fnpskudlu.com%2F"><FaLinkedinIn /></a>
                 <a href="https://www.youtube.com/@NPSKudlu"><FaYoutube /></a>
                 <a href="https://www.instagram.com/nps_kudlu/#"><FaInstagram /></a>
+                <a href="https://in.pinterest.com/npskudlu/" aria-label="Pinterest"><FaPinterestP /></a>
               </div>
             </div>
           </div>
