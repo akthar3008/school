@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// Restoring original component paths
 import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer.jsx';
+
+// Restoring original page paths
 import HomePage from './pages/HomePage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
-
-// Import all pages
 import OverviewPage from './pages/OverviewPage.jsx';
 import VisionAndMissionPage from './pages/VisionAndMissionPage.jsx';
 import LeadershipPage from './pages/LeadershipPage.jsx';
@@ -21,6 +22,10 @@ import GalleryPage from './pages/GalleryPage.jsx';
 import CareersPage from './pages/CareersPage.jsx';
 import BlogPage from './pages/BlogPage.jsx';
 import OtherDocumentsPage from './pages/OtherDocumentsPage.jsx';
+import ApplyOnlinePage from './pages/ApplyOnlinePage.jsx'; 
+
+// Adding ParentLoginPage with the correct path, assuming it's in the 'pages' folder
+import ParentLoginPage from './pages/ParentLoginPage.jsx'; 
 
 import './App.css';
 
@@ -32,6 +37,12 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<ContactPage />} />
+
+          {/* --- NEW APPLY ONLINE ROUTE --- */}
+          <Route path="/apply-online" element={<ApplyOnlinePage />} />
+
+          {/* --- NEW PARENT LOGIN ROUTE --- */}
+          <Route path="/login" element={<ParentLoginPage />} />
 
           {/* About Us Routes */}
           <Route path="/about/overview" element={<OverviewPage />} />
@@ -67,3 +78,4 @@ function App() {
 }
 
 export default App;
+
