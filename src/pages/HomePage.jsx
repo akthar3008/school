@@ -117,7 +117,7 @@ const HomePage = () => {
                     Explore a diverse range of activities from arts and physical education to life skills and newspaper education.
                 </p>
                 <Link to="/beyond-academics" className="read-more-link">
-                     <FaArrowRight />
+                 <FaArrowRight />
                 </Link>
             </section>
 
