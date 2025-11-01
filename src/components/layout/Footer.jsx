@@ -18,12 +18,12 @@ const Footer = () => {
                         <h3>NATIONAL PUBLIC SCHOOL</h3>
                         <p>KUDLU - CBSE AFFILIATION NO. 831492</p>
                         <div className="footer-social-icons">
-                            <a href="#!" aria-label="Facebook"><FaFacebookF /></a>
-                            <a href="#!" aria-label="Twitter"><FaTwitter /></a>
-                            <a href="#!" aria-label="Instagram"><FaInstagram /></a>
-                            <a href="#!" aria-label="LinkedIn"><FaLinkedinIn /></a>
-                            <a href="#!" aria-label="Pinterest"><FaPinterestP /></a>
-                            <a href="#!" aria-label="YouTube"><FaYoutube /></a>
+                            <a href="https://www.facebook.com/NPSKudlu/"><FaFacebookF /></a>
+                            <a href="https://x.com/KudluNps?t=UCRjvbZw5wFzHXy3U1TzjQ&s=09"><FaTwitter /></a>
+                            <a href="https://www.linkedin.com/in/national-public-school-kudlu-26539625a/?original_referer=https%3A%2F%2Fnpskudlu.com%2F"><FaLinkedinIn /></a>
+                            <a href="https://www.youtube.com/@NPSKudlu"><FaYoutube /></a>
+                            <a href="https://www.instagram.com/nps_kudlu/#"><FaInstagram /></a>
+                            <a href="https://in.pinterest.com/npskudlu/" aria-label="Pinterest"><FaPinterestP /></a>
                         </div>
                     </div>
                     <div className="footer-links-grid">
