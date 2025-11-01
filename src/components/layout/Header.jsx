@@ -88,11 +88,11 @@ const Header = () => {
             </marquee>
             <div className="top-bar-right-angled">
               <div className="social-icons">
-                <a href="#!"><FaFacebookF /></a>
-                <a href="#!"><FaTwitter /></a>
-                <a href="#!"><FaLinkedinIn /></a>
-                <a href="#!"><FaYoutube /></a>
-                <a href="#!"><FaInstagram /></a>
+                <a href="https://www.facebook.com/NPSKudlu/"><FaFacebookF /></a>
+                <a href="https://x.com/KudluNps?t=UCRjvbZw5wFzHXy3U1TzjQ&s=09"><FaTwitter /></a>
+                <a href="https://www.linkedin.com/in/national-public-school-kudlu-26539625a/?original_referer=https%3A%2F%2Fnpskudlu.com%2F"><FaLinkedinIn /></a>
+                <a href="https://www.youtube.com/@NPSKudlu"><FaYoutube /></a>
+                <a href="https://www.instagram.com/nps_kudlu/#"><FaInstagram /></a>
               </div>
             </div>
           </div>
