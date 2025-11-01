@@ -229,6 +229,7 @@ const HomePage = () => {
                     <h2>Join Us Today!</h2>
                     <h3>Experience the Difference at NPS Kudlu</h3>
                     <p>Join us at National Public School Kudlu and embark on a journey of transformative learning. Together, let's inspire, empower, and shape the bright futures of tomorrow.</p>
+                    <Link to="/apply-online" classname="enquire-now-btn">ENQUIRE NOW</Link>
                     <div className="join-us-gallery">
                         <img src={square} alt="Student gallery 1"/>
                         <img src={square1} alt="Student gallery 2"/>
