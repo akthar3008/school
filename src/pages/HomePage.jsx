@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // It's a good practice to use an icon library for icons
-import { FaGraduationCap, FaUsers, FaLightbulb, FaBrain, FaArrowRight, FaQuoteLeft } from 'react-icons/fa';
+import { FaGraduationCap, FaUsers, FaLightbulb, FaBrain, FaArrowRight, FaQuoteLeft, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 // Import the slider images from your assets folder
 import slider2 from '../assets/images/slider2.jpg';
@@ -31,6 +31,187 @@ import middleyears from '../assets/images/middleyears.png';
 import msgschairman300x300 from '../assets/images/msgschairman300x300.jpg';
 import physical_education from '../assets/images/physical_education.jpg';
 import primaryyears from '../assets/images/primaryyears.png';
+
+
+// --- NEW COMPONENT: Progressive Registration Form (UNCHANGED) ---
+const RegistrationForm = () => {
+    // State to hold form data
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        mobile: '',
+        class: ''
+    });
+
+    const [captcha, setCaptcha] = useState('');
+    const [captchaValue, setCaptchaValue] = useState('7cd8a8'); // Static Captcha for example
+
+    // Handler for all input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+    
+    // Simple form submission handler
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (captcha !== captchaValue) {
+            alert("Captcha is incorrect!");
+            return;
+        }
+        console.log("Form Submitted:", formData);
+        alert("Enquiry Submitted Successfully!");
+        // Logic to reset form or navigate away
+    };
+
+    // Derived state for progressive field visibility
+    const isNameValid = formData.name.length > 2;
+    // Simple email validation
+    const isEmailValid = isNameValid && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email); 
+    // Basic mobile length check
+    const isMobileValid = isEmailValid && formData.mobile.length === 10; 
+    const isClassSelected = isMobileValid && formData.class !== '';
+    const isFormReady = isClassSelected && captcha.length === captchaValue.length;
+
+    return (
+        <div className="registration-form-box">
+            <h3 className="form-title">Quick Admission Enquiry</h3>
+            
+            <form onSubmit={handleSubmit}>
+                {/* 1. Name Field (Always Visible) */}
+                <div className="form-group">
+                    <label htmlFor="name">Enter Name *</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your Full Name"
+                        required
+                    />
+                </div>
+
+                {/* 2. Email Field (Visible only if Name is filled) */}
+                {isNameValid && (
+                    <div className="form-group slide-in">
+                        <label htmlFor="email">Enter Email Address *</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="your@email.com"
+                            required
+                        />
+                    </div>
+                )}
+
+                {/* 3. Mobile Number Field (Visible only if Email is valid) */}
+                {isEmailValid && (
+                    <div className="form-group slide-in">
+                        <label htmlFor="mobile">Enter Mobile Number *</label>
+                        <div className="mobile-input-group">
+                            <span className="country-code">+91</span>
+                            <input
+                                type="tel"
+                                id="mobile"
+                                name="mobile"
+                                value={formData.mobile}
+                                onChange={handleChange}
+                                placeholder="Mobile Number (10 digits)"
+                                maxLength="10"
+                                pattern="\d{10}"
+                                required
+                            />
+                        </div>
+                    </div>
+                )}
+                
+                {/* 4. Class Selection Dropdown (Visible only if Mobile is filled) */}
+                {isMobileValid && (
+                    <div className="form-group slide-in">
+                        <label htmlFor="class">Select Class Applying For *</label>
+                        <select
+                            id="class"
+                            name="class"
+                            value={formData.class}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Class AY 2026-27</option>
+                            <option value="Montessori">Montessori</option>
+                            <option value="KG">Kindergarten</option>
+                            <option value="Grade I">Grade I</option>
+                            <option value="Grade VIII">Grade VIII</option>
+                        </select>
+                    </div>
+                )}
+                
+                {/* 5. Captcha and Submit (Visible only if Class is selected) */}
+                {isClassSelected && (
+                    <>
+                        <div className="form-group full-width captcha-group slide-in">
+                            <div className="captcha-display">{captchaValue}</div>
+                            <input
+                                type="text"
+                                id="captcha"
+                                name="captcha"
+                                value={captcha}
+                                onChange={(e) => setCaptcha(e.target.value)}
+                                placeholder="Enter Captcha"
+                                maxLength={captchaValue.length}
+                                required
+                            />
+                        </div>
+
+                        <button type="submit" className="enquire-submit-btn" disabled={!isFormReady}>
+                            Submit Enquiry
+                        </button>
+                    </>
+                )}
+            </form>
+
+            <div className="admission-contact">
+                <p>or call us directly:</p>
+                <p><FaPhone /> **+91 97312 26002**</p>
+                <p><FaEnvelope /> info@npskudlu.com</p>
+            </div>
+        </div>
+    );
+};
+// --- END NEW COMPONENT ---
+
+
+// --- NEW COMPONENT: Map Section ---
+const MapSection = () => {
+    // NOTE: This URL is used as requested but will likely show "refused to connect".
+    // TO FIX: Replace the value of mapUrl with a Google Maps embed URL starting with 
+    // "https://www.google.com/maps/embed?pb=..." obtained directly from Google Maps.
+    const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43162.98495093647!2d77.64145007791561!3d12.890155915755637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae139e51d557e5%3A0xc499e62ff7625a06!2sNational%20Public%20School%2C%20Kudlu!5e0!3m2!1sen!2sin!4v1762351834151!5m2!1sen!2sin";
+    return (
+        <section className="map-section">
+            <div className="container">
+                <h2 className="map-title">Find Our Location</h2>
+            </div>
+            <div className="map-responsive-container">
+                <iframe 
+                    src={mapUrl} 
+                    title="School Location Map"
+                    width="100%" 
+                    height="450" 
+                    style={{ border: 0 }}
+                    allowFullScreen="" 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+            </div>
+        </section>
+    );
+};
+// --- END NEW COMPONENT ---
+
 
 const HomePage = () => {
     // Array of all slider images
@@ -62,12 +243,21 @@ const HomePage = () => {
                 ))}
             </section>
 
-            {/* School Building and Admissions Section */}
+            {/* School Info Section (Image, Form, and Text Card) - MODIFIED LAYOUT */}
             <section className="school-info-section container">
+                
+                {/* 1. Form Container (New Top Element - Now Right Aligned/Reduced Width) */}
+                <div className="form-container-top">
+                    <RegistrationForm />
+                </div>
+                
+                {/* 2. Building Image Card (Original Left Element) */}
                 <div className="school-building-card">
                     <img src={npskudlu} alt="National Public School Kudlu campus" />
                 </div>
-                <div className="admissions-card">
+                
+                {/* 3. Static Admissions Info Card (Original Right Element) */}
+                <div className="admissions-card original-style">
                     <h3>Academic year 2026-27</h3>
                     <p>
                         Registration for admission for the Academic year 2026-27 open for Montessori to Grade VIII.
@@ -116,7 +306,7 @@ const HomePage = () => {
                 <p>
                     Explore a diverse range of activities from arts and physical education to life skills and newspaper education.
                 </p>
-                <Link to="/beyond-academics" className="read-more-link">
+                <Link to="/programme/co-scholastic" className="read-more-link">
                  <FaArrowRight />
                 </Link>
             </section>
@@ -229,7 +419,6 @@ const HomePage = () => {
                     <h2>Join Us Today!</h2>
                     <h3>Experience the Difference at NPS Kudlu</h3>
                     <p>Join us at National Public School Kudlu and embark on a journey of transformative learning. Together, let's inspire, empower, and shape the bright futures of tomorrow.</p>
-                    <Link to="/apply-online" classname="enquire-now-btn">ENQUIRE NOW</Link>
                     <div className="join-us-gallery">
                         <img src={square} alt="Student gallery 1"/>
                         <img src={square1} alt="Student gallery 2"/>
@@ -268,9 +457,12 @@ const HomePage = () => {
                     NPS believes teachers, like students, are life-long learners. It is a core conviction of our institution that teachers can have an impact on the physical, mental and moral well-being of a student through value-based learning.
                 </p>
             </section>
+            
+            {/* --- MAP SECTION ADDED HERE --- */}
+            <MapSection /> 
+
         </div>
     );
 };
 
 export default HomePage;
-
