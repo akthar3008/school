@@ -56,13 +56,13 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []); // Empty dependency array so it only runs on mount
-  // --- END NEW LOGIC ---
+  // --- END SCROLL LOGIC ---
 
 
   // Toggles the main mobile menu visibility
   const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-    setOpenDropdown(null);
+    setIsMenuOpen(prev => !prev);
+    setOpenDropdown(null); // Close any open dropdowns when main menu toggles
   };
 
   // Closes the main mobile menu and resets dropdowns
@@ -73,6 +73,7 @@ const Header = () => {
 
   // Toggles a specific mobile dropdown
   const handleMobileDropdownToggle = (dropdownName) => {
+    // If the clicked dropdown is already open, close it. Otherwise, open the new one.
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
   };
 
@@ -88,12 +89,11 @@ const Header = () => {
             </marquee>
             <div className="top-bar-right-angled">
               <div className="social-icons">
-                <a href="https://www.facebook.com/NPSKudlu/"><FaFacebookF /></a>
-                <a href="https://x.com/KudluNps?t=UCRjvbZw5wFzHXy3U1TzjQ&s=09"><FaTwitter /></a>
-                <a href="https://www.linkedin.com/in/national-public-school-kudlu-26539625a/?original_referer=https%3A%2F%2Fnpskudlu.com%2F"><FaLinkedinIn /></a>
-                <a href="https://www.youtube.com/@NPSKudlu"><FaYoutube /></a>
-                <a href="https://www.instagram.com/nps_kudlu/#"><FaInstagram /></a>
-                <a href="https://in.pinterest.com/npskudlu/" aria-label="Pinterest"><FaPinterestP /></a>
+                <a href="#!"><FaFacebookF /></a>
+                <a href="#!"><FaTwitter /></a>
+                <a href="#!"><FaLinkedinIn /></a>
+                <a href="#!"><FaYoutube /></a>
+                <a href="#!"><FaInstagram /></a>
               </div>
             </div>
           </div>
@@ -156,7 +156,7 @@ const Header = () => {
 
         {/* === MAIN NAVIGATION (Desktop) === */}
         <nav className={`main-nav ${navVisible ? 'nav-sticky' : 'nav-hidden'}`}>
-          <div className="container" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="container" style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
             
             <ul>
               <li><NavLink to="/" end>Home</NavLink></li>
