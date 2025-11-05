@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaPinterestP, FaYoutube } from 'react-icons/fa';
+import { 
+    FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube, FaInstagram, FaPinterestP, 
+    FaPhone, FaEnvelope, FaMapMarkerAlt,
+    FaChevronRight // <-- NEW ICON IMPORTED
+} from 'react-icons/fa'; 
 import logo from '../../assets/images/NPS-Kudlu-logo.jpg'; 
 
 // --- IMPORT PDFs ---
@@ -8,98 +12,145 @@ import schoolPoliciesPDF from '../../assets/documents/School_Policy.pdf';
 import disasterManagementPDF from '../../assets/documents/Disaster_Management.pdf';
 // --- END IMPORTS ---
 
+// --- HELPER COMPONENT FOR CONSISTENT LIST ITEM STYLING ---
+const FooterLink = ({ to, text, isExternal = false }) => {
+    const content = (
+        <>
+        <FaChevronRight classname="footer-right-icon"/>
+            <span className="footer-link-text">{text}</span>
+        </>
+    );
+
+    if (isExternal) {
+        return (
+            <li>
+                <a href={to} target="_blank" rel="noopener noreferrer">
+                    {content}
+                </a>
+            </li>
+        );
+    }
+
+    return (
+        <li>
+            <Link to={to}>
+                {content}
+            </Link>
+        </li>
+    );
+};
+// --- END HELPER COMPONENT ---
+
+
 const Footer = () => {
     return (
         <footer className="site-footer">
             <div className="container">
                 <div className="footer-top">
+                    
+                    {/* 1. Left Logo and Social Column */}
                     <div className="footer-logo-section">
+                        {/* Logo is styled via CSS to match the size/look */}
                         <img src={logo} alt="National Public School Kudlu" className="footer-logo" />
                         <h3>NATIONAL PUBLIC SCHOOL</h3>
                         <p>KUDLU - CBSE AFFILIATION NO. 831492</p>
                         <div className="footer-social-icons">
-                            <a href="https://www.facebook.com/NPSKudlu/"><FaFacebookF /></a>
-                            <a href="https://x.com/KudluNps?t=UCRjvbZw5wFzHXy3U1TzjQ&s=09"><FaTwitter /></a>
-                            <a href="https://www.linkedin.com/in/national-public-school-kudlu-26539625a/?original_referer=https%3A%2F%2Fnpskudlu.com%2F"><FaLinkedinIn /></a>
-                            <a href="https://www.youtube.com/@NPSKudlu"><FaYoutube /></a>
-                            <a href="https://www.instagram.com/nps_kudlu/#"><FaInstagram /></a>
-                            <a href="https://in.pinterest.com/npskudlu/" aria-label="Pinterest"><FaPinterestP /></a>
+                            <a href="#!" aria-label="Facebook"><FaFacebookF /></a>
+                            <a href="#!" aria-label="Twitter"><FaTwitter /></a>
+                            <a href="#!" aria-label="Instagram"><FaInstagram /></a>
+                            <a href="#!" aria-label="LinkedIn"><FaLinkedinIn /></a>
+                            <a href="#!" aria-label="Pinterest"><FaPinterestP /></a>
+                            <a href="#!" aria-label="YouTube"><FaYoutube /></a>
                         </div>
                     </div>
-                    <div className="footer-links-grid">
+                    
+                    {/* 2. Top Right Contact Details Column */}
+                    <div className="footer-contact-info-new">
+                        
+                        <div className="contact-item-new">
+                            <FaPhone className="contact-icon-new" />
+                            <div className="contact-text-new">
+                                <h4>Phone</h4>
+                                <p>(+91) 97317 76002</p>
+                            </div>
+                        </div>
+
+                        <div className="contact-item-new">
+                            <FaEnvelope className="contact-icon-new" />
+                            <div className="contact-text-new">
+                                <h4>Mail</h4>
+                                <p>info@npskudlu.com</p>
+                            </div>
+                        </div>
+
+                        <div className="contact-item-new">
+                            <FaMapMarkerAlt className="contact-icon-new" />
+                            <div className="contact-text-new">
+                                <h4>NPS Campuses</h4>
+                                <p>Singasandra, Bengaluru, Karnataka</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {/* Horizontal Line Break is handled by CSS grid structure now */}
+                    
+                    {/* 3. Footer Links Grid (Using new Helper Component) */}
+                    <div className="footer-links-grid-new">
+                        
                         <div className="footer-column">
-                            <h4>Home</h4>
+                            <h4>About Us</h4> 
                             <ul>
-                                {/* --- FIXED LINKS --- */}
-                                <li><Link to="/about/overview">About</Link></li>
-                                <li><Link to="/about/overview">Overview</Link></li>
-                                <li><Link to="/about/vision-mission">Vision and Mission</Link></li>
-                                <li><Link to="/about/leadership">Leadership</Link></li>
-                                <li><Link to="/about/facilities">Facilities</Link></li>
-                                <li><Link to="/about/school-details">School Details</Link></li>
-                                {/* --- END FIXED LINKS --- */}
+                                <FooterLink to="/about/overview" text="Overview" />
+                                <FooterLink to="/about/vision-mission" text="Vision and Mission" />
+                                <FooterLink to="/about/leadership" text="Leadership" />
+                                <FooterLink to="/about/facilities" text="Facilities" />
+                                <FooterLink to="/about/school-day" text="Average School Day" />
+                                <FooterLink to="/about/school-details" text="School Details" />
                             </ul>
                         </div>
+                        
                         <div className="footer-column">
-                            <h4>Programme</h4>
+                            <h4>Academics & Admissions</h4>
                             <ul>
-                                {/* --- FIXED LINKS --- */}
-                                <li><Link to="/programme/scholastic">Scholastic Programme</Link></li>
-                                <li><Link to="/programme/co-scholastic">Co-Scholastic Programme</Link></li>
-                                {/* --- END FIXED LINKS --- */}
-                            </ul>
-                            <h4>Admission</h4>
-                            <ul>
-                                {/* --- FIXED LINKS --- */}
-                                <li><Link to="/admission/kg-montessori">KG I, KG II & Montessori</Link></li>
-                                <li><Link to="/admission/grades">Grade I - VIII</Link></li>
-                                {/* --- END FIXED LINKS --- */}
+                                <FooterLink to="/programme/scholastic" text="Scholastic Programme" />
+                                <FooterLink to="/programme/co-scholastic" text="Co-Scholastic Programme" />
+                                <FooterLink to="/admission/kg-montessori" text="KG & Montessori Admission" />
+                                <FooterLink to="/admission/grades" text="Grade I - VIII Admission" />
+                                <FooterLink to="/mandatory-disclosure" text="Mandatory Public Disclosure" />
                             </ul>
                         </div>
+                        
                         <div className="footer-column">
-                            <h4>Resources</h4>
+                            <h4>Resources & Policies</h4>
                             <ul>
-                                <li><Link to="/careers">Careers</Link></li>
-                                {/* --- FIXED PDF LINKS --- */}
-                                <li><a href={schoolPoliciesPDF} target="_blank" rel="noopener noreferrer">School Policies</a></li>
-                                <li><a href={disasterManagementPDF} target="_blank" rel="noopener noreferrer">Disaster Management</a></li>
-                                {/* --- END FIXED PDF LINKS --- */}
-                                <li><Link to="/blog">Blog</Link></li>
-                                <li><Link to="/documents">Other Documents</Link></li>
+                                <FooterLink to="/careers" text="Careers" />
+                                <FooterLink to="/blog" text="Blog" />
+                                <FooterLink to={schoolPoliciesPDF} text="School Policies" isExternal={true} />
+                                <FooterLink to={disasterManagementPDF} text="Disaster Management" isExternal={true} />
+                                <FooterLink to="/documents" text="Other Documents" />
+                                <FooterLink to="/terms" text="Terms & Condition" />
                             </ul>
                         </div>
-                         <div className="footer-column">
-                            <h4>Gallery</h4>
+                        
+                        <div className="footer-column">
+                            <h4>Quick Links</h4>
                             <ul>
-                                {/* --- FIXED LINK --- */}
-                                <li><Link to="/gallery">Events</Link></li>
-                                {/* --- END FIXED LINK --- */}
-                            </ul>
-                             <h4>Others</h4>
-                            <ul>
-                                {/* --- FIXED LINK --- */}
-                                <li><Link to="/mandatory-disclosure">Mandatory Public Disclosure</Link></li>
-                                {/* --- END FIXED LINK --- */}
-                                <li><Link to="/contact">Contact Us</Link></li>
+                                <FooterLink to="/contact" text="Contact Us" />
+                                <FooterLink to="/gallery" text="Gallery" />
+                                <FooterLink to="/faq" text="FAQ" />
+                                <FooterLink to="/privacy" text="Privacy Policy" />
+                                <FooterLink to="/cancellation" text="Cancellation/Refund Policy" />
                             </ul>
                         </div>
+                        
                     </div>
                 </div>
-                <div className="footer-bottom">
-                    <div className="footer-contact-info">
-                        <h4>Contact Us</h4>
-                        <p>148, Silver County Rd, Kudlu, Singasandra, Bengaluru, Karnataka — 560068 India</p>
-                        <p><strong>Phone:</strong> +91 97312 26002</p>
-                        <p><strong>Email:</strong> info@npskudlu.com</p>
-                    </div>
-                    <div className="footer-legal">
-                        <p>© {new Date().getFullYear()} All rights reserved</p>
-                        <div className="footer-legal-links">
-                            <Link to="/terms">Terms and Conditions</Link>
-                            <Link to="/cancellation">Cancellation/Refund Policy</Link>
-                            <Link to="/privacy">Privacy Policy</Link>
-                        </div>
-                        <p>Designed by EMS Webtech</p>
+                
+                {/* 4. Footer Bottom (Copyright) */}
+                <div className="footer-bottom footer-bottom-new">
+                    <p>© {new Date().getFullYear()} All rights reserved. NPS Kudlu</p>
+                    <div className="connect-button-wrapper">
+                        <Link to="/contact" className="connect-with-us-btn">CONNECT WITH US</Link>
                     </div>
                 </div>
             </div>
