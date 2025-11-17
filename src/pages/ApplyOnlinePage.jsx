@@ -1,107 +1,172 @@
-import React, { useState } from 'react';
-import { FaTimes } from 'react-icons/fa';
-import logo from '../assets/images/NPS-Kudlu-logo.jpg'; // Make sure this path is correct
+import React, { useState } from "react";
+import logo from "../assets/images/NPS-Kudlu-logo.jpg";
 
 const ApplyOnlinePage = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    parentName: "",
+    studentName: "",
+    grade: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
 
-    // --- Logic to control the modal ---
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+  const [status, setStatus] = useState({ type: "", message: "" });
 
-    // Handle form submission
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        // Add your form submission logic here (e.g., send data to backend)
-        alert('Form submitted (placeholder)');
-        closeModal();
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-    return (
-        <div className="apply-online-container">
-            {/* --- This is the main page content (Image 1) --- */}
-            <img src={logo} alt="National Public School, Kudlu" className="apply-logo" />
-            <p className="apply-greeting">Greetings from National Public School, Kudlu.</p>
-            <p className="apply-text">We request to kindly click on the 'Enquire Now' button to fill in the form and submit.</p>
-            <p className="apply-text">Post the enquiry form is submitted, the Admission Team will connect with you for further process.</p>
-            
-            <button className="enquire-now-btn-page" onClick={openModal}>
-                ENQUIRE NOW
-            </button>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { parentName, studentName, grade, phone, email } = formData;
 
-            {/* --- This is the Modal (Pop-up) (Image 2) --- */}
-            {isModalOpen && (
-                <div className="modal-overlay" onClick={closeModal}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        
-                        <div className="modal-header">
-                            <h2>Fill the Enquiry Form</h2>
-                            <button className="modal-close-btn" onClick={closeModal}>
-                                <FaTimes />
-                            </button>
-                        </div>
-                        
-                        <form className="modal-form" onSubmit={handleFormSubmit}>
-                            <div className="modal-form-group full-width">
-                                <label htmlFor="admissionFor">Admission for 2026 - 2027 <span>*</span></label>
-                                <select id="admissionFor" name="admissionFor" required>
-                                    <option value="">Please select the class from the dropdown menu</option>
-                                    <option value="kg">Kindergarten</option>
-                                    <option value="montessori">Montessori</option>
-                                    <option value="grade1">Grade 1</option>
-                                    <option value="grade2">Grade 2</option>
-                                    <option value="grade3">Grade 3</option>
-                                    <option value="grade4">Grade 4</option>
-                                    <option value="grade5">Grade 5</option>
-                                    <option value="grade6">Grade 6</option>
-                                    <option value="grade7">Grade 7</option>
-                                    <option value="grade8">Grade 8</option>
-                                </select>
-                            </div>
+    if (!parentName || !studentName || !grade || !phone || !email) {
+      setStatus({
+        type: "error",
+        message: "Please fill all required fields.",
+      });
+      return;
+    }
 
-                            <h3>Student Details</h3>
-                            
-                            <div className="modal-form-group">
-                                <label htmlFor="studentName">Name of the Student (in Capital Letters) <span>*</span></label>
-                                <input type="text" id="studentName" name="studentName" placeholder="Student Name" required />
-                            </div>
-                            
-                            <div className="modal-form-group">
-                                <label htmlFor="dob">Date of birth <span>*</span></label>
-                                <input type="text" id="dob" name="dob" placeholder="Date of Birth" required onFocus={(e) => (e.target.type = 'date')} onBlur={(e) => (e.target.type = 'text')} />
-                            </div>
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+      setStatus({
+        type: "error",
+        message: "Enter a valid 10-digit mobile number.",
+      });
+      return;
+    }
 
-                            <h3>Parent's Details (Father or Mother)</h3>
-                            
-                            <div className="modal-form-group">
-                                <label htmlFor="parentName">Name <span>*</span></label>
-                                <input type="text" id="parentName" name="parentName" placeholder="Name" required />
-                            </div>
-                            
-                            <div className="modal-form-group">
-                                <label htmlFor="mobile">Mobile <span>*</span></label>
-                                <input type="tel" id="mobile" name="mobile" placeholder="Mobile" required />
-                            </div>
-                            
-                            <div className="modal-form-group">
-                                <label htmlFor="email">Email <span>*</span></label>
-                                <input type="email" id="email" name="email" placeholder="Email" required />
-                            </div>
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setStatus({
+        type: "error",
+        message: "Enter a valid email address.",
+      });
+      return;
+    }
 
-                            <div className="modal-form-group full-width">
-                                <label htmlFor="message">Message</label>
-                                <textarea id="message" name="message" rows="4" placeholder="Type your message here..."></textarea>
-                            </div>
+    setStatus({ type: "success", message: "Application submitted successfully!" });
+    setTimeout(() => setStatus({ type: "", message: "" }), 3000);
 
-                            <div className="modal-form-actions">
-                                <button type="submit" className="modal-submit-btn">SUBMIT</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
+    setFormData({
+      parentName: "",
+      studentName: "",
+      grade: "",
+      phone: "",
+      email: "",
+      message: "",
+    });
+  };
+
+  return (
+    <div className="apply-online-container">
+      <img src={logo} alt="NPS Kudlu Logo" className="apply-logo" />
+      <h1>Apply Online</h1>
+      <p>
+        Submit your application for admission to National Public School Kudlu.
+        Please provide accurate information for smooth processing.
+      </p>
+
+      <form className="modal-form" onSubmit={handleSubmit}>
+        <div className="modal-form-group">
+          <label htmlFor="parentName">Parent Name *</label>
+          <input
+            type="text"
+            id="parentName"
+            name="parentName"
+            value={formData.parentName}
+            onChange={handleChange}
+            placeholder="Enter parent’s full name"
+            required
+          />
         </div>
-    );
+
+        <div className="modal-form-group">
+          <label htmlFor="studentName">Student Name *</label>
+          <input
+            type="text"
+            id="studentName"
+            name="studentName"
+            value={formData.studentName}
+            onChange={handleChange}
+            placeholder="Enter student’s full name"
+            required
+          />
+        </div>
+
+        <div className="modal-form-group">
+          <label htmlFor="grade">Select Grade *</label>
+          <select
+            id="grade"
+            name="grade"
+            value={formData.grade}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Grade</option>
+            <option value="Montessori">Montessori</option>
+            <option value="KG">Kindergarten</option>
+            <option value="Grade 1">Grade 1</option>
+            <option value="Grade 2">Grade 2</option>
+            <option value="Grade 3">Grade 3</option>
+            <option value="Grade 4">Grade 4</option>
+            <option value="Grade 5">Grade 5</option>
+            <option value="Grade 6">Grade 6</option>
+            <option value="Grade 7">Grade 7</option>
+            <option value="Grade 8">Grade 8</option>
+          </select>
+        </div>
+
+        <div className="modal-form-group">
+          <label htmlFor="phone">Mobile Number *</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Enter 10-digit mobile number"
+            maxLength="10"
+            required
+          />
+        </div>
+
+        <div className="modal-form-group">
+          <label htmlFor="email">Email Address *</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email address"
+            required
+          />
+        </div>
+
+        <div className="modal-form-group full-width">
+          <label htmlFor="message">Message (Optional)</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Any additional information"
+          ></textarea>
+        </div>
+
+        <button type="submit" className="modal-submit-btn">
+          Submit Application
+        </button>
+      </form>
+
+      {status.message && (
+        <div className={`status-message ${status.type}`}>{status.message}</div>
+      )}
+    </div>
+  );
 };
 
 export default ApplyOnlinePage;
