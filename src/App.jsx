@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 // Restoring original component paths
 import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer.jsx';
@@ -28,6 +28,16 @@ import ApplyOnlinePage from './pages/ApplyOnlinePage.jsx';
 import ParentLoginPage from './pages/ParentLoginPage.jsx'; 
 
 import './App.css';
+
+
+function FloatingContactButton() {
+  return (
+    <Link to="/contact" className="floating-contact-btn">
+      CONNECT WITH US
+    </Link>
+  );
+}
+
 
 function App() {
   return (
@@ -72,10 +82,12 @@ function App() {
           <Route path="/documents" element={<OtherDocumentsPage />} />
         </Routes>
       </main>
+      <FloatingContactButton />
       <Footer />
     </Router>
   );
 }
+
 
 export default App;
 
