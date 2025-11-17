@@ -16,7 +16,7 @@ import disasterManagementPDF from '../../assets/documents/Disaster_Management.pd
 const FooterLink = ({ to, text, isExternal = false }) => {
     const content = (
         <>
-        <FaChevronRight classname="footer-right-icon"/>
+            <FaChevronRight className="footer-fixed-arrow" />
             <span className="footer-link-text">{text}</span>
         </>
     );
@@ -149,9 +149,6 @@ const Footer = () => {
                 {/* 4. Footer Bottom (Copyright) */}
                 <div className="footer-bottom footer-bottom-new">
                     <p>© {new Date().getFullYear()} All rights reserved. NPS Kudlu</p>
-                    <div className="connect-button-wrapper">
-                        <Link to="/contact" className="connect-with-us-btn">CONNECT WITH US</Link>
-                    </div>
                 </div>
             </div>
         </footer>
