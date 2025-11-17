@@ -258,6 +258,22 @@ main {
     transform: translateY(0) !important;
 }
 
+/* Force main header sticky always */
+.main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+
+/* Remove scroll-up / scroll-down behaviour */
+.main-nav.nav-sticky,
+.main-nav.nav-hidden {
+  transform: none !important;
+  opacity: 1 !important;
+  position: sticky !important;
+  top: 0 !important;
+}
 
 .main-nav .container {
   position: relative;
@@ -1286,21 +1302,185 @@ main {
     margin-top: 0;
     margin-bottom: 25px;
 }
+/* Center the map + add border + add rounded corners + shadow */
 .map-responsive-container {
-    overflow: hidden;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    margin: 0 auto;              /* Center the map */
+    max-width: 900px;            /* Optional: limit width */
+    padding-bottom: 0% !important;  /* Reduced height (same as earlier) */
+    border: 4px solid var(--primary-yellow);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     position: relative;
-    height: 0;
-}
-.map-responsive-container iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    border: 0;
+    overflow: hidden;
 }
 
+.map-responsive-container iframe {
+    border-radius: 10px; /* Follow the container rounding */
+}
+
+/* === UNIFIED FORM PAGE STYLE (Apply Online + Parent Login) === */
+
+/* Shared Page Container */
+.apply-online-container,
+.login-page-container {
+    max-width: 550px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+    border: 1px solid #eaeaea;
+    animation: fadeIn 0.5s ease-in-out;
+    text-align: center;
+}
+
+/* Logo alignment */
+.apply-logo {
+    width: 340px;
+    margin-bottom: 15px;
+}
+
+/* Title */
+.apply-online-container h1,
+.login-title {
+    font-size: 2rem;
+    color: var(--dark-blue);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Subtitle text */
+.apply-online-container p {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+/* Shared form style */
+.modal-form,
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+/* Shared form input style */
+.modal-form-group,
+.login-form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    position: relative;
+}
+
+.modal-form-group label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--text-light);
+}
+
+.modal-form-group input,
+.modal-form-group select,
+.modal-form-group textarea,
+.login-form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #fafafa;
+    transition: 0.3s ease-in-out;
+}
+
+.modal-form-group input:focus,
+.modal-form-group select:focus,
+.modal-form-group textarea:focus,
+.login-form-group input:focus {
+    border-color: var(--light-blue);
+    background-color: #ffffff;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.18);
+    outline: none;
+}
+
+/* Login icons inside input */
+.login-icon {
+    position: absolute;
+    left: 12px;
+    top: 17px;
+    color: var(--primary-yellow);
+    font-size: 18px;
+}
+
+.login-form-group input {
+    padding-left: 40px;
+}
+
+/* Buttons unified */
+.modal-submit-btn,
+.login-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(45deg, var(--light-blue), #0056b3);
+    border: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: 0.3s ease;
+}
+
+.modal-submit-btn:hover,
+.login-submit-btn:hover {
+    background: linear-gradient(45deg, #0056b3, var(--light-blue));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.25);
+}
+
+/* Status messages unified */
+.apply-online-container .status-message,
+.login-page-container .status-message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.status-message.success {
+    background-color: #e6f9ec;
+    color: var(--success-green);
+}
+
+.status-message.error {
+    background-color: #fdecea;
+    color: var(--error-red);
+}
+
+/* Links */
+.forgot-password,
+.signup-link {
+    color: var(--light-blue);
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.forgot-password:hover,
+.signup-link:hover {
+    color: var(--primary-yellow);
+    text-decoration: underline;
+}
+
+/* Login footer links */
+.login-footer-links {
+    margin-top: 20px;
+    font-size: 14px;
+}
 
 /* === FOOTER STYLES (MATCHING IMAGE LAYOUT) === */
 .site-footer {
@@ -1389,6 +1569,39 @@ main {
     color: var(--dark-blue);
 }
 
+/* LOCK THE ICON (never moves, never animates) */
+.footer-fixed-arrow {
+  color: var(--primary-yellow) !important;
+  margin-right: 8px;
+  font-size: 14px;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* On hover: DO NOT TOUCH the icon */
+.footer-column ul li a:hover .footer-fixed-arrow {
+  color: var(--primary-yellow) !important;
+  transform: none !important;
+}
+
+/* TEXT ANIMATION ONLY */
+.footer-link-text {
+  display: inline-block;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+/* Hover animation ONLY on text */
+.footer-column ul li a:hover .footer-link-text {
+  transform: translateX(6px);
+  color: var(--white);
+}
+
+/* Prevent link hover from applying animation to the whole <a> */
+.footer-column ul li a {
+  transform: none !important;
+  transition: none !important;
+}
+
 
 /* NEW CONTACT INFO ROW STYLES (Aligned horizontally with logo) */
 .footer-contact-info-new {
@@ -1399,6 +1612,29 @@ main {
     padding-top: 10px;
     padding-left: 20px; /* Space between logo section and contact items */
 }
+
+/* Floating Contact Button */
+.floating-contact-btn {
+  position: fixed;
+  bottom: 10px;
+  right: 30px;
+  background: linear-gradient(45deg, #fdb913, #ff6600);
+  color: var(--dark-blue);
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 15px;
+  box-shadow: 0px 6px 20px rgba(0,0,0,0.25);
+  z-index: 9999;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.floating-contact-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.35);
+}
+
 
 .contact-item-new {
     display: flex;
@@ -1690,4 +1926,37 @@ main {
     
   .captcha-group { flex-direction: column; align-items: stretch; }
   .captcha-display { width: 100%; margin-bottom: 10px; }
+}
+/* === FIX LEADERSHIP SECTION FOR MOBILE === */
+@media (max-width: 768px) {
+
+  .chairman-message-card {
+      padding: 25px;
+      text-align: center;
+  }
+
+  .chairman-content {
+      flex-direction: column;       /* Stack image + text vertically */
+      align-items: center;          /* Center alignment */
+      text-align: center;
+      gap: 20px;
+  }
+
+  .chairman-photo {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+  }
+
+  .chairman-text p {
+      text-align: center !important;
+  }
+
+  .leadership-section h2 {
+      font-size: 1.8rem;
+  }
+
+  .chairman-message-card h3 {
+      font-size: 1.4rem;
+  }
 }
