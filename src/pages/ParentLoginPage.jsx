@@ -1,77 +1,93 @@
-import React, { useState } from 'react';
-import { FaUser, FaLock } from 'react-icons/fa';
+import React, { useState } from "react";
+import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ParentLoginPage = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        password: ''
-    });
-    const [status, setStatus] = useState({ message: '', type: '' });
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [status, setStatus] = useState({ type: "", message: "" });
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setStatus({ message: 'Logging in...', type: 'info' });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = formData;
 
-        // ---
-        // TODO: Add your authentication logic here
-        // For now, this is a placeholder
-        // ---
-        setTimeout(() => {
-            if (formData.username === 'parent' && formData.password === 'password123') {
-                setStatus({ message: 'Login Successful! Redirecting...', type: 'success' });
-                // You would redirect here, e.g.:
-                // window.location.href = '/parent-dashboard'; 
-            } else {
-                setStatus({ message: 'Invalid username or password.', type: 'error' });
-            }
-        }, 1000);
-    };
+    if (!email || !password) {
+      setStatus({ type: "error", message: "Please fill in all fields." });
+      return;
+    }
 
-    return (
-        <div className="login-page-container">
-            <div className="login-box">
-                <h2 className="login-title">Parent Login</h2>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <div className="login-form-group">
-                        <FaUser className="login-icon" />
-                        <input
-                            type="text"
-                            name="username"
-                            placeholder="Username / Parent ID"
-                            value={formData.username}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="login-form-group">
-                        <FaLock className="login-icon" />
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="login-form-actions">
-                        <a href="#!" className="forgot-password">Forgot Password?</a>
-                        <button type="submit" className="login-submit-btn">Login</button>
-                    </div>
-                </form>
-                {status.message && (
-                    <p className={`status-message ${status.type}`}>
-                        {status.message}
-                    </p>
-                )}
-            </div>
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setStatus({ type: "error", message: "Invalid email format." });
+      return;
+    }
+
+    setStatus({ type: "success", message: "Login successful!" });
+    setTimeout(() => setStatus({ type: "", message: "" }), 2500);
+  };
+
+  return (
+    <div className="login-page-container">
+      <div className="login-box">
+        <h2 className="login-title">
+          <FaUser /> Parent Login
+        </h2>
+
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="login-form-group">
+            <FaEnvelope className="login-icon" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your registered email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="login-form-group">
+            <FaLock className="login-icon" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="login-form-actions">
+            <Link to="/forgot-password" className="forgot-password">
+              Forgot Password?
+            </Link>
+            <button type="submit" className="login-submit-btn">
+              Login
+            </button>
+          </div>
+        </form>
+
+        {status.message && (
+          <div className={`status-message ${status.type}`}>
+            {status.message}
+          </div>
+        )}
+
+        <div className="login-footer-links">
+          <p>
+            Don’t have an account?{" "}
+            <Link to="/apply-online" className="signup-link">
+              Apply Online
+            </Link>
+          </p>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default ParentLoginPage;
-
